@@ -14,6 +14,8 @@ export default function Login() {
     const [validationErrors, setValidationErrors] = useState([]);
     const [loginFailed, setLoginFailed] = useState("");
 
+    const [showPassword, setShowPassword] = useState(false);
+
     const login = async (e) => {
         e.preventDefault();
         try {
@@ -67,7 +69,6 @@ export default function Login() {
                             quasi. In deleniti eaque aut repudiandae et a id nisi.
                         </p>
                         <div className="flex justify-center gap-5">
-                            <button className="btn btn-primary"><Link to="/register">Register</Link></button>
                             <button className="btn btn-accent"><Link to="/">Kembali</Link></button>
                         </div>
                     </div>
@@ -91,18 +92,42 @@ export default function Login() {
                                 <label className="label">
                                     <span className="label-text">Username</span>
                                 </label>
-                                <input className="input input-bordered" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+                                <input
+                                    className="input input-bordered"
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    placeholder="Username"
+                                />
                             </div>
+
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input className="input input-bordered" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                                <div className="relative">
+                                    <input
+                                        className="input input-bordered w-full"
+                                        type={showPassword ? "text" : "password"}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder="Password"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-xs"
+                                    >
+                                        {showPassword ? "Hide" : "Show"}
+                                    </button>
+                                </div>
                             </div>
+
                             <div className="form-control mt-6">
                                 <button type="submit" className="btn btn-primary">Login</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>

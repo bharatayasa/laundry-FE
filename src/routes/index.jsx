@@ -9,10 +9,10 @@ import Login from '../views/auth/Login.jsx';
 import Admin from '../views/admin/user/index.jsx';
 import CreateUser from '../views/admin/user/CreateUser.jsx';
 import EditUser from '../views/admin/user/EditUser.jsx';
-
 import Laporan from '../views/admin/laporan/index.jsx';
 
-import Kasir from '../views/kasir/index.jsx';
+import Kasir from '../views/kasir/pelanggan/index.jsx';
+import Pembayaran from '../views/kasir/pembayaran/index.jsx';
 
 import Pengolahan from '../views/pengolahan/index.jsx';
 
@@ -48,6 +48,9 @@ export default function AppRoutes() {
             {/* Kasir routes */}
             <Route path="/kasir/home" element={
                 isAuthenticated && userRole === 'Kasir' ? <Kasir /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/kasir/pembayaran" element={
+                isAuthenticated && userRole === 'Kasir' ? <Pembayaran /> : <Navigate to="/login" replace />
             } />
 
             {/* Pengolahan routes */}
