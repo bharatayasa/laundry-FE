@@ -12,6 +12,10 @@ import EditUser from '../views/admin/user/EditUser.jsx';
 import Laporan from '../views/admin/laporan/index.jsx';
 
 import Kasir from '../views/kasir/pelanggan/index.jsx';
+import AddPelanggan from '../views/kasir/pelanggan/addPelanggan.jsx';
+import EditPelanggan from '../views/kasir/pelanggan/EditPelanggan.jsx';
+
+
 import Pembayaran from '../views/kasir/pembayaran/index.jsx';
 
 import Pengolahan from '../views/pengolahan/index.jsx';
@@ -49,6 +53,13 @@ export default function AppRoutes() {
             <Route path="/kasir/home" element={
                 isAuthenticated && userRole === 'Kasir' ? <Kasir /> : <Navigate to="/login" replace />
             } />
+            <Route path="/kasir/add/pelanggan" element={
+                isAuthenticated && userRole === 'Kasir' ? <AddPelanggan /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/kasir/edit/pelanggan/:id" element={
+                isAuthenticated && userRole === 'Kasir' ? <EditPelanggan /> : <Navigate to="/login" replace />
+            } />
+
             <Route path="/kasir/pembayaran" element={
                 isAuthenticated && userRole === 'Kasir' ? <Pembayaran /> : <Navigate to="/login" replace />
             } />

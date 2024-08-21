@@ -5,8 +5,6 @@ import Api from '../../../service/api';
 import NavbarAdmin from '../../../components/NavbarAdmin';
 import Footer from '../../../components/Footer';
 
-const token = Cookies.get('token');
-
 function CreateUser() {
     const navigate = useNavigate();
 
@@ -22,7 +20,9 @@ function CreateUser() {
     const handleCreateUser = async (e) => {
         e.preventDefault();
 
+        const token = Cookies.get('token');
         Api.defaults.headers.common['Authorization'] = token;
+
         await Api.post('/user', {
             username: username,
             password: password,

@@ -4,6 +4,7 @@ import Footer from '../../../components/Footer';
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import Api from '../../../service/api';
+import { Link } from 'react-router-dom';
 
 function Kasir() {
     const [pelanggans, setPelanggans] = useState([]);
@@ -37,6 +38,22 @@ function Kasir() {
         setCurrentPage(1);
     };
 
+    const deletePelanggan = async (id) => {
+        const token = Cookies.get('token');
+        Api.defaults.headers.common['Authorization'] = token;
+
+        if (token) {
+            try {
+                await Api.delete(`/pelanggan/${id}`);
+                fetchPelanggan();
+            } catch (error) {
+                console.error("There was an error nonaktif the pelanggan!", error);
+            }
+        } else {
+            console.error("Token is not available!");
+        }
+    }
+
     const filteredPelanggan = pelanggans.filter(pelanggan => {
         if (searchCriteria === 'nama') {
             return pelanggan.nama.toLowerCase().includes(searchTerm.toLowerCase());
@@ -67,10 +84,19 @@ function Kasir() {
 
     return (
         <div>
-            <NavbarKasir />
+            <div>
+                <NavbarKasir />
+            </div>
 
             <div className='flex justify-center'>
                 <h1 className='text-2xl my-2 mx-2 font-semibold'>Data Pelanggan</h1>
+            </div>
+
+
+            <div className='flex mx-auto container mb-5'>
+                <div className='btn btn-primary'>
+                    <Link to="/kasir/add/pelanggan">Add Pelanggan</Link>
+                </div>
             </div>
 
             <div className='flex mx-auto container mb-5'>
@@ -79,8 +105,8 @@ function Kasir() {
                     onChange={(e) => setSearchCriteria(e.target.value)} 
                     className="select select-bordered w-32 max-w-xs"
                 >
-                    <option value="id_pelanggan">ID</option>
                     <option value="nama">Nama</option>
+                    <option value="id_pelanggan">ID</option>
                     <option value="email">E-Mail</option>
                 </select>
                 <input 
@@ -156,9 +182,8 @@ function Kasir() {
 
                                     <td>
                                         <div className='flex gap-2 justify-center'>
-                                            <button className='btn btn-secondary'>nonaktif</button>
-                                            <button className='btn btn-accent'>aktif</button>
-                                            <button className='btn btn-primary'>Update</button>
+                                            <Link to={`/kasir/edit/pelanggan/${pelanggan.id_pelanggan}`} className='btn btn-primary'>Update</Link>
+                                            <button onClick={() => deletePelanggan(pelanggan.id_pelanggan)} className='btn btn-secondary'>delete</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -189,9 +214,11 @@ function Kasir() {
                 >
                     Next
                 </button>
-            </div>
+            </div> 
 
-            <Footer />
+            <div className='mt-5'>
+                <Footer />
+            </div>
         </div>
     );
 }

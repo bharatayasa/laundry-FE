@@ -36,8 +36,9 @@ function Index() {
 
     const nonaktofUser = async (id) => {
         const token = Cookies.get('token');
+        Api.defaults.headers.common['Authorization'] = token;
+
         if (token) {
-            Api.defaults.headers.common['Authorization'] = token;
             try {
                 await Api.delete(`/user/${id}`);
                 fetchDataUsers();

@@ -40,6 +40,7 @@ function EditUser() {
 
         const token = Cookies.get('token');
         Api.defaults.headers.common['Authorization'] = token;
+
         try {
             await Api.put(`/user/${id}`, {
                 username: username,
