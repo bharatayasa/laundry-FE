@@ -62,6 +62,11 @@ export default function NavbarKasir() {
                                 <Link to="/kasir/home">Pelanggan</Link>
                             </div>
                         </li>
+                        <li className={`text-lg ${location.pathname === '/kasir/pakaian' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                            <div>
+                                <Link to="/kasir/pakaian">Pakaian</Link>
+                            </div>
+                        </li>
                         <li className={`text-lg ${location.pathname === '/kasir/pembayaran' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
                             <div>
                                 <Link to="/kasir/pembayaran">Pembayaran</Link>

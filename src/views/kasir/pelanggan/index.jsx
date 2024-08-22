@@ -10,7 +10,7 @@ function Kasir() {
     const [pelanggans, setPelanggans] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchCriteria, setSearchCriteria] = useState('nama');
+    const [searchCriteria, setSearchCriteria] = useState('id_pelanggan');
     const pelangganPerPage = 5;
 
     const fetchPelanggan = async () => {
@@ -33,11 +33,6 @@ function Kasir() {
         fetchPelanggan();
     }, []);
 
-    const handleSearch = (e) => {
-        setSearchTerm(e.target.value);
-        setCurrentPage(1);
-    };
-
     const deletePelanggan = async (id) => {
         const token = Cookies.get('token');
         Api.defaults.headers.common['Authorization'] = token;
@@ -53,6 +48,11 @@ function Kasir() {
             console.error("Token is not available!");
         }
     }
+
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+        setCurrentPage(1);
+    };
 
     const filteredPelanggan = pelanggans.filter(pelanggan => {
         if (searchCriteria === 'nama') {
@@ -89,9 +89,8 @@ function Kasir() {
             </div>
 
             <div className='flex justify-center'>
-                <h1 className='text-2xl my-2 mx-2 font-semibold'>Data Pelanggan</h1>
+                <h1 className='text-2xl my-2 mx-2 font-semibold'>Data Pendaftaran</h1>
             </div>
-
 
             <div className='flex mx-auto container mb-5'>
                 <div className='btn btn-primary'>
@@ -105,8 +104,8 @@ function Kasir() {
                     onChange={(e) => setSearchCriteria(e.target.value)} 
                     className="select select-bordered w-32 max-w-xs"
                 >
-                    <option value="nama">Nama</option>
                     <option value="id_pelanggan">ID</option>
+                    <option value="nama">Nama</option>
                     <option value="email">E-Mail</option>
                 </select>
                 <input 
@@ -214,7 +213,7 @@ function Kasir() {
                 >
                     Next
                 </button>
-            </div> 
+            </div>
 
             <div className='mt-5'>
                 <Footer />
