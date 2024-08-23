@@ -68,10 +68,18 @@ export default function Pembayaran() {
 
     return (
         <div>
-            <NavbarKasir />
+            <div>
+                <NavbarKasir />
+            </div>
 
             <div className='flex justify-center'>
                 <h1 className='text-2xl my-2 mx-2 font-semibold'>Data Pembayaran</h1>
+            </div>
+
+            <div className='flex mx-auto container mb-5'>
+                <div className='btn btn-primary'>
+                    <button>Add Pembayaran</button>
+                </div>
             </div>
 
             <div className='flex mx-auto container mb-5'>

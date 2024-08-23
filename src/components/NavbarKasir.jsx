@@ -40,7 +40,12 @@ export default function NavbarKasir() {
                         <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                             <li className={`text-lg ${location.pathname === '/kasir/home' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
                                 <div>
-                                    <Link to="/kasir/home">Pelanggan</Link>
+                                    <Link to="/kasir/home">Pendaftaran</Link>
+                                </div>
+                            </li>
+                            <li className={`text-lg ${location.pathname === '/kasir/pakaian' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                                <div>
+                                    <Link to="/kasir/pakaian">Pakaian</Link>
                                 </div>
                             </li>
                             <li className={`text-lg ${location.pathname === '/kasir/pembayaran' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
@@ -60,6 +65,11 @@ export default function NavbarKasir() {
                         <li className={`text-lg ${location.pathname === '/kasir/home' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
                             <div>
                                 <Link to="/kasir/home">Pelanggan</Link>
+                            </div>
+                        </li>
+                        <li className={`text-lg ${location.pathname === '/kasir/pendaftaran' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                            <div>
+                                <Link to="/kasir/pendaftaran">Pendaftaran</Link>
                             </div>
                         </li>
                         <li className={`text-lg ${location.pathname === '/kasir/pakaian' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>

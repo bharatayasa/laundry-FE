@@ -10,7 +10,7 @@ function Laporan() {
     const [laporans, setLaporan] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchCriteria, setSearchCriteria] = useState('username');
+    const [searchCriteria, setSearchCriteria] = useState('id_laporan');
     const laporanPerPage = 5;
 
     const fetchLaporan = async () => {
@@ -82,7 +82,7 @@ function Laporan() {
                     onChange={(e) => setSearchCriteria(e.target.value)} 
                     className="select select-bordered w-32 max-w-xs"
                 >
-                    <option value="id_laporan">id_laporan</option>
+                    <option value="id_laporan">ID</option>
                     <option value="username">Admin</option>
                     <option value="status_cuci">Status Cuci</option>
                 </select>

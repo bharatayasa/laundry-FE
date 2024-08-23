@@ -37,6 +37,8 @@ export default function PakaianIndex() {
             return pakaian.id_pakaian.toString().toLowerCase().includes(searchTerm.toLowerCase());
         } else if  (searchCriteria === 'jenis_pakaian') {
             return pakaian.jenis_pakaian.toLowerCase().includes(searchTerm.toLowerCase());
+        } else if  (searchCriteria === 'nama') {
+            return pakaian.nama.toLowerCase().includes(searchTerm.toLowerCase());
         } else {
             return false;
         }
@@ -69,6 +71,12 @@ export default function PakaianIndex() {
             </div>
 
             <div className='flex mx-auto container mb-5'>
+                <div className='btn btn-primary'>
+                    <Link to={'/kasir/add/pakaian'}>Add Pakaian</Link>
+                </div>
+            </div>
+
+            <div className='flex mx-auto container mb-5'>
                 <select 
                     value={searchCriteria} 
                     onChange={(e) => setSearchCriteria(e.target.value)} 
@@ -76,6 +84,7 @@ export default function PakaianIndex() {
                 >
                     <option value="id_pakaian">ID</option>
                     <option value="jenis_pakaian">Jenis Pakaian</option>
+                    <option value="nama">Pelanggan</option>
                 </select>
                 <input 
                     type="text" 
@@ -93,6 +102,7 @@ export default function PakaianIndex() {
                             <th className='text-lg text-center'>No</th>
                             <th className='text-lg text-center'>ID Pakaian</th>
                             <th className='text-lg text-center'>ID pendaftaran</th>
+                            <th className='text-lg text-center'>Pelanggan</th>
                             <th className='text-lg text-center'>Jumlah</th>
                             <th className='text-lg text-center'>Jenis Pakaian</th>
                             <th className='text-lg text-center'>Berat</th>
@@ -115,13 +125,20 @@ export default function PakaianIndex() {
                                     {pakaian.id_pendaftaran}
                                 </td>
                                 <td className='text-center'>
-                                    {pakaian.jumlah}
+                                    {pakaian.nama}
+                                </td>
+                                <td className='text-center'>
+                                    <p>
+                                        {pakaian.jumlah} pcs
+                                    </p>
                                 </td>
                                 <td className='text-center'>
                                     {pakaian.jenis_pakaian}
                                 </td>
                                 <td className='text-center'>
-                                    {pakaian.berat}
+                                    <p>
+                                        {pakaian.berat} Kg
+                                    </p>
                                 </td>
                                 <td className='text-center'>
                                     <div className='flex gap-2 justify-center'>
@@ -132,7 +149,7 @@ export default function PakaianIndex() {
                             </tr>
                         )) : (
                             <tr>
-                                <td colSpan="5">
+                                <td colSpan="7">
                                     <div className='text-center text-secondary'>
                                         Data Belum Tersedia!
                                     </div>
@@ -145,7 +162,7 @@ export default function PakaianIndex() {
             </div>
 
             <div className='flex justify-center mt-4'>
-                <button 
+                <button
                     onClick={prevPage} 
                     className={`btn ${currentPage === 1 ? 'btn-disabled' : 'btn-primary'} mr-2`}
                 >

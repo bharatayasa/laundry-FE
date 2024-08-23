@@ -15,8 +15,11 @@ import Laporan from '../views/admin/laporan/index.jsx';
 import Kasir from '../views/kasir/pelanggan/index.jsx';
 import AddPelanggan from '../views/kasir/pelanggan/addPelanggan.jsx';
 import EditPelanggan from '../views/kasir/pelanggan/EditPelanggan.jsx';
-import Pakaian from '../views/kasir/pakaian/index.jsx';
 
+import Pakaian from '../views/kasir/pakaian/index.jsx';
+import AddPakaian from '../views/kasir/pakaian/addPakaian.jsx';
+
+import Pendaftaran from '../views/kasir/pendaftaran/index.jsx';
 
 import Pembayaran from '../views/kasir/pembayaran/index.jsx';
 
@@ -52,6 +55,7 @@ export default function AppRoutes() {
             } />
 
             {/* Kasir routes */}
+            {/* pelanggan */}
             <Route path="/kasir/home" element={
                 isAuthenticated && userRole === 'Kasir' ? <Kasir /> : <Navigate to="/login" replace />
             } />
@@ -61,11 +65,18 @@ export default function AppRoutes() {
             <Route path="/kasir/edit/pelanggan/:id" element={
                 isAuthenticated && userRole === 'Kasir' ? <EditPelanggan /> : <Navigate to="/login" replace />
             } />
-
+            {/* pendaftaran */}
+            <Route path="/kasir/pendaftaran" element={
+                isAuthenticated && userRole === 'Kasir' ? <Pendaftaran /> : <Navigate to="/login" replace />
+            } />
+            {/* pakaian */}
             <Route path="/kasir/pakaian" element={
                 isAuthenticated && userRole === 'Kasir' ? <Pakaian /> : <Navigate to="/login" replace />
             } />
-
+            <Route path="/kasir/add/pakaian" element={
+                isAuthenticated && userRole === 'Kasir' ? <AddPakaian /> : <Navigate to="/login" replace />
+            } />
+            {/* pembayaran */}
             <Route path="/kasir/pembayaran" element={
                 isAuthenticated && userRole === 'Kasir' ? <Pembayaran /> : <Navigate to="/login" replace />
             } />

@@ -9,7 +9,7 @@ import Footer from '../../../components/Footer';
 function Index() {
     const [users, setUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchCriteria, setSearchCriteria] = useState('username');
+    const [searchCriteria, setSearchCriteria] = useState('id_user');
     const [currentPage, setCurrentPage] = useState(1);
     const usersPerPage = 5;
 
@@ -120,9 +120,9 @@ function Index() {
                     onChange={(e) => setSearchCriteria(e.target.value)} 
                     className="select select-bordered w-32 max-w-xs"
                 >
+                    <option value="id_user">ID</option>
                     <option value="username">Username</option>
                     <option value="role">Role</option>
-                    <option value="id_user">ID User</option>
                 </select>
                 <input 
                     type="text" 
