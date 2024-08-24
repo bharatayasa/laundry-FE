@@ -39,6 +39,22 @@ export default function Pendaftaran() {
         setCurrentPage(1);
     };
 
+    const deletePendaftaran = async (id) => {
+        const token = Cookies.get('token');
+        Api.defaults.headers.common['Authorization'] = token;
+
+        if (token) {
+            try {
+                await Api.delete(`/pendaftaran/${id}`);
+                fetchPendaftaran();
+            } catch (error) {
+                console.error("There was an error deleting pakaian!", error);
+            }
+        } else {
+            console.error("Token is not available!");
+        }
+    }
+
     const filteredPendaftaran = pendaftarans.filter(pendaftaran => {
         if (searchCriteria === 'id_pendaftaran') {
             return pendaftaran.id_pelanggan.toString().includes(searchTerm.toLowerCase());
@@ -79,7 +95,7 @@ export default function Pendaftaran() {
 
             <div className='flex mx-auto container mb-5'>
                 <div className='btn btn-primary'>
-                    <button>Add Pendaftaran</button>
+                    <Link to={'/kasir/add/pendaftaran'}>Add Pendaftaran</Link>
                 </div>
             </div>
 
@@ -108,11 +124,9 @@ export default function Pendaftaran() {
                         <tr>
                             <th className='text-lg text-center'>No</th>
                             <th className='text-lg text-center'>ID</th>
-                            <th className='text-lg text-center'>ID kurir</th>
-                            <th className='text-lg text-center'>kurir</th>
-                            <th className='text-lg text-center'>ID pelanggan</th>
-                            <th className='text-lg text-center'>Nama Pelanggan</th>
-                            <th className='text-lg text-center'>Tgl pendaftaran</th>
+                            <th className='text-lg'>kurir</th>
+                            <th className='text-lg'>Pelanggan</th>
+                            <th className='text-lg'>Tgl pendaftaran</th>
                             <th className='text-lg text-center'>Aksi</th>
                         </tr>
                     </thead>
@@ -135,46 +149,48 @@ export default function Pendaftaran() {
                                     </td>
 
                                     <td>
-                                        <div className='text-center'>
-                                            {pendaftaran.id_user}
+                                        <div className='flex flex-col'>
+                                            <div className='flex flex-row gap-2'>
+                                                <p className='font-semibold'>id:</p>
+                                                <p>{pendaftaran.id_user}</p>
+                                            </div>
+                                            <div className='flex flex-row gap-2'>
+                                                <p className='font-semibold'>nama:</p>
+                                                <p>{pendaftaran.username}</p>
+                                            </div>
                                         </div>
                                     </td>
 
                                     <td>
-                                        <div className='text-center'>
-                                            {pendaftaran.username}
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        <div className='text-center'>
-                                            {pendaftaran.id_pelanggan}
+                                    <div className='flex flex-col'>
+                                            <div className='flex flex-row gap-2'>
+                                                <p className='font-semibold'>id:</p>
+                                                <p>{pendaftaran.id_pelanggan}</p>
+                                            </div>
+                                            <div className='flex flex-row gap-2'>
+                                                <p className='font-semibold'>nama:</p>
+                                                <p>{pendaftaran.nama}</p>
+                                            </div>
                                         </div>
                                     </td>
 
                                     <td>
                                         <div>
-                                            {pendaftaran.nama}
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        <div className='text-center'>
                                             {pendaftaran.tanggal_pendaftaran}
                                         </div>
                                     </td>
 
                                     <td>
                                         <div className='flex gap-2 justify-center'>
-                                            <button className='btn btn-primary'>Update</button>
-                                            <button className='btn btn-secondary'>delete</button>
+                                            <Link to={`/kasir/edit/pendaftaran/${pendaftaran.id_pendaftaran}`} className='btn btn-primary'>Update</Link>
+                                            <button onClick={() => deletePendaftaran(pendaftaran.id_pendaftaran)} className='btn btn-secondary'>delete</button>
                                         </div>
                                     </td>
                                 </tr>
 
                             )): 
                             <tr>
-                                <td colSpan="8">
+                                <td colSpan="6">
                                     <div className='text-center text-secondary'>
                                         Data Belum Tersedia!
                                     </div>

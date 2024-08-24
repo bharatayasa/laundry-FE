@@ -20,6 +20,8 @@ import Pakaian from '../views/kasir/pakaian/index.jsx';
 import AddPakaian from '../views/kasir/pakaian/addPakaian.jsx';
 
 import Pendaftaran from '../views/kasir/pendaftaran/index.jsx';
+import AddPendaftaran from '../views/kasir/pendaftaran/AddPendaftaran.jsx';
+import EditPendaftaran from '../views/kasir/pendaftaran/EditPendaftaran.jsx';
 
 import Pembayaran from '../views/kasir/pembayaran/index.jsx';
 
@@ -68,6 +70,12 @@ export default function AppRoutes() {
             {/* pendaftaran */}
             <Route path="/kasir/pendaftaran" element={
                 isAuthenticated && userRole === 'Kasir' ? <Pendaftaran /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/kasir/add/pendaftaran" element={
+                isAuthenticated && userRole === 'Kasir' ? <AddPendaftaran /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/kasir/edit/pendaftaran/:id" element={
+                isAuthenticated && userRole === 'Kasir' ? <EditPendaftaran /> : <Navigate to="/login" replace />
             } />
             {/* pakaian */}
             <Route path="/kasir/pakaian" element={

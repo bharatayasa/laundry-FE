@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import NavbarKasir from '../../../components/NavbarKasir'
 import Api from '../../../service/api';
 import Cookies from 'js-cookie';
+import Footer from '../../../components/Footer';
 
 function addPakaian() {
     const navigate = useNavigate()
@@ -91,7 +92,7 @@ function addPakaian() {
                                     <option value="">Pilih Id Pendaftaran</option>
                                     {pelanggans.map((pelanggan) => (
                                         <option key={pelanggan.id_pendaftaran} value={pelanggan.id_pendaftaran}>
-                                            {pelanggan.nama} - {pelanggan.id_pendaftaran}
+                                            id: {pelanggan.id_pendaftaran} {pelanggan.nama}
                                         </option>
                                     ))}
                             </select>
@@ -105,13 +106,13 @@ function addPakaian() {
 
                         <div>
                             <label className="input input-bordered flex items-center gap-2 font-semibold">Jumlah
-                                <input type="text" value={jumlah} onChange={(e) => setJumlah(e.target.value)} />
+                                <input type="number" value={jumlah} onChange={(e) => setJumlah(e.target.value)} />
                             </label>
                         </div>
 
                         <div>
                             <label className="input input-bordered flex items-center gap-2 font-semibold">berat
-                                <input type="text" value={berat} onChange={(e) => setBerat(e.target.value)} />
+                                <input type="number" value={berat} onChange={(e) => setBerat(e.target.value)} />
                             </label>
                         </div>
 
@@ -120,6 +121,9 @@ function addPakaian() {
                         </div>
                     </form>
                 </div>
+            </div>
+            <div className='mt-5'>
+                <Footer />
             </div>
         </div>
     )

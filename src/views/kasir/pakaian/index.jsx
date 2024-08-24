@@ -102,9 +102,9 @@ export default function PakaianIndex() {
                             <th className='text-lg text-center'>No</th>
                             <th className='text-lg text-center'>ID Pakaian</th>
                             <th className='text-lg text-center'>ID pendaftaran</th>
-                            <th className='text-lg text-center'>Pelanggan</th>
-                            <th className='text-lg text-center'>Jumlah</th>
-                            <th className='text-lg text-center'>Jenis Pakaian</th>
+                            <th className='text-lg'>Pelanggan</th>
+                            <th className='text-lg'>Jumlah</th>
+                            <th className='text-lg'>Jenis Pakaian</th>
                             <th className='text-lg text-center'>Berat</th>
                             <th className='text-lg text-center'>Aksi</th>
                         </tr>
@@ -124,15 +124,15 @@ export default function PakaianIndex() {
                                 <td className='text-center'>
                                     {pakaian.id_pendaftaran}
                                 </td>
-                                <td className='text-center'>
+                                <td>
                                     {pakaian.nama}
                                 </td>
-                                <td className='text-center'>
+                                <td>
                                     <p>
                                         {pakaian.jumlah} pcs
                                     </p>
                                 </td>
-                                <td className='text-center'>
+                                <td>
                                     {pakaian.jenis_pakaian}
                                 </td>
                                 <td className='text-center'>
