@@ -32,6 +32,22 @@ export default function PakaianIndex() {
         fetchPakaian();
     }, []);
 
+    const deletePakaian = async (id) => {
+        const token = Cookies.get('token');
+        Api.defaults.headers.common['Authorization'] = token;
+
+        if (token) {
+            try {
+                await Api.delete(`/pakaian/${id}`);
+                fetchPakaian();
+            } catch (error) {
+                console.error("There was an error nonaktif the pakaian!", error);
+            }
+        } else {
+            console.error("Token is not available!");
+        }
+    }
+
     const filteredPakaian = pakaians.filter(pakaian => {
         if (searchCriteria === 'id_pakaian') {
             return pakaian.id_pakaian.toString().toLowerCase().includes(searchTerm.toLowerCase());
@@ -142,8 +158,8 @@ export default function PakaianIndex() {
                                 </td>
                                 <td className='text-center'>
                                     <div className='flex gap-2 justify-center'>
-                                        <button className='btn btn-primary'>Update</button>
-                                        <button className='btn btn-secondary'>Delete</button>
+                                        <Link to={`/kasir/edit/pakaian/${pakaian.id_pakaian}`} className='btn btn-primary'>Update</Link>
+                                        <button onClick={() => deletePakaian(pakaian.id_pakaian)} className='btn btn-secondary'>Delete</button>
                                     </div>
                                 </td>
                             </tr>
