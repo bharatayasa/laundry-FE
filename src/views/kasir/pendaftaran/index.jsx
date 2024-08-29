@@ -124,7 +124,7 @@ export default function Pendaftaran() {
                         <tr>
                             <th className='text-lg text-center'>No</th>
                             <th className='text-lg text-center'>ID</th>
-                            <th className='text-lg'>kurir</th>
+                            <th className='text-lg'>Kasir</th>
                             <th className='text-lg'>Pelanggan</th>
                             <th className='text-lg'>Tgl pendaftaran</th>
                             <th className='text-lg text-center'>Aksi</th>

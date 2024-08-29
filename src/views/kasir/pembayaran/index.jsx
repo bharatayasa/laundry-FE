@@ -3,6 +3,7 @@ import NavbarKasir from '../../../components/NavbarKasir';
 import Footer from '../../../components/Footer';
 import Cookies from 'js-cookie';
 import Api from '../../../service/api';
+import { Link } from 'react-router-dom';
 
 export default function Pembayaran() {
     const [pembayaran, setPembayaran] = useState([]); 
@@ -78,7 +79,7 @@ export default function Pembayaran() {
 
             <div className='flex mx-auto container mb-5'>
                 <div className='btn btn-primary'>
-                    <button>Add Pembayaran</button>
+                    <Link to={'/kasir/add/pembayaran'}>Add Pembayaran</Link>
                 </div>
             </div>
 
@@ -91,7 +92,7 @@ export default function Pembayaran() {
                     <option value="id_pembayaran">ID</option>
                     <option value="id_pendaftaran">Pendaftaran</option>
                     <option value="status">Status</option>
-                    <option value="username">Username</option>
+                    <option value="username">Kasir</option>
                 </select>
                 <input 
                     type="text" 
@@ -107,9 +108,9 @@ export default function Pembayaran() {
                     <thead>
                         <tr>
                             <th className='text-lg text-center'>No</th>
-                            <th className='text-lg text-center'>ID Pembayaran</th>
-                            <th className='text-lg text-center'>ID Pendaftaran</th>
-                            <th className='text-lg text-center'>Username</th>
+                            <th className='text-lg text-center'>ID</th>
+                            <th className='text-lg text-center'>Pendaftar</th>
+                            <th className='text-lg text-center'>Kasir</th>
                             <th className='text-lg text-center'>Total Biaya</th>
                             <th className='text-lg text-center'>Tanggal Pembayaran</th>
                             <th className='text-lg text-center'>Status</th>
@@ -128,7 +129,14 @@ export default function Pembayaran() {
                                         {pembayaran.id_pembayaran}
                                     </td>
                                     <td className='text-center'>
-                                        {pembayaran.id_pendaftaran}
+                                        <div className='flex gap-2'>
+                                            <div>
+                                                id: {pembayaran.id_pendaftaran}
+                                            </div>
+                                            <div>
+                                                {pembayaran.nama}
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         {pembayaran.username}

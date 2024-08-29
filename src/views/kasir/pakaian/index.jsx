@@ -116,7 +116,7 @@ export default function PakaianIndex() {
                     <thead>
                         <tr>
                             <th className='text-lg text-center'>No</th>
-                            <th className='text-lg text-center'>ID Pakaian</th>
+                            <th className='text-lg text-center'>ID</th>
                             <th className='text-lg text-center'>ID pendaftaran</th>
                             <th className='text-lg'>Pelanggan</th>
                             <th className='text-lg'>Jumlah</th>

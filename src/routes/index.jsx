@@ -25,6 +25,7 @@ import AddPendaftaran from '../views/kasir/pendaftaran/AddPendaftaran.jsx';
 import EditPendaftaran from '../views/kasir/pendaftaran/EditPendaftaran.jsx';
 
 import Pembayaran from '../views/kasir/pembayaran/index.jsx';
+import AddPembayaran from '../views/kasir/pembayaran/AddPembayaran.jsx';
 
 import Pengolahan from '../views/pengolahan/index.jsx';
 
@@ -91,6 +92,9 @@ export default function AppRoutes() {
             {/* pembayaran */}
             <Route path="/kasir/pembayaran" element={
                 isAuthenticated && userRole === 'Kasir' ? <Pembayaran /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/kasir/add/pembayaran" element={
+                isAuthenticated && userRole === 'Kasir' ? <AddPembayaran /> : <Navigate to="/login" replace />
             } />
 
             {/* Pengolahan routes */}
