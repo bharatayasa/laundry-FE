@@ -44,6 +44,35 @@ export default function Pembayaran() {
         }
     }
 
+    const downloadPdf = async (id) => {
+        const token = Cookies.get('token'); 
+        Api.defaults.headers.common['Authorization'] = token; 
+    
+        if (token) {
+            try {
+                const response = await Api.get(`/pembayaran/download/${id}`, { responseType: 'blob' });
+    
+                const contentDisposition = response.headers['content-disposition'];
+                const fileName = contentDisposition
+                    ? contentDisposition.split('filename=')[1].replace(/"/g, '')
+                    : `invoice_${id}.pdf`;
+    
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error("There was an error downloading the .pdf file!", error);
+            }
+        } else {
+            console.error("Token is not available!");
+        }
+    }
+
     useEffect(() => {
         fetchPembayaran();
     }, []);
@@ -168,6 +197,7 @@ export default function Pembayaran() {
                                     </td>
                                     <td className='text-center'>
                                         <div className='flex gap-2 justify-center'>
+                                            <button onClick={() => downloadPdf(pembayaran.id_pembayaran)} className='btn btn-accent'>Print</button>
                                             <Link to={`/kasir/edit/pembayaran/${pembayaran.id_pembayaran}`} className='btn btn-primary'>Update</Link>
                                             <button onClick={() => deletePembayaran(pembayaran.id_pembayaran)} className='btn btn-secondary'>Delete</button>
                                         </div>
