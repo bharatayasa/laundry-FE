@@ -59,7 +59,6 @@ export default function AppRoutes() {
                 isAuthenticated && userRole === 'Admin' ? <Laporan /> : <Navigate to="/login" replace />
             } />
 
-            {/* Kasir routes */}
             {/* pelanggan */}
             <Route path="/kasir/home" element={
                 isAuthenticated && userRole === 'Kasir' ? <Kasir /> : <Navigate to="/login" replace />
@@ -70,6 +69,7 @@ export default function AppRoutes() {
             <Route path="/kasir/edit/pelanggan/:id" element={
                 isAuthenticated && userRole === 'Kasir' ? <EditPelanggan /> : <Navigate to="/login" replace />
             } />
+
             {/* pendaftaran */}
             <Route path="/kasir/pendaftaran" element={
                 isAuthenticated && userRole === 'Kasir' ? <Pendaftaran /> : <Navigate to="/login" replace />
@@ -80,6 +80,7 @@ export default function AppRoutes() {
             <Route path="/kasir/edit/pendaftaran/:id" element={
                 isAuthenticated && userRole === 'Kasir' ? <EditPendaftaran /> : <Navigate to="/login" replace />
             } />
+
             {/* pakaian */}
             <Route path="/kasir/pakaian" element={
                 isAuthenticated && userRole === 'Kasir' ? <Pakaian /> : <Navigate to="/login" replace />
@@ -90,6 +91,7 @@ export default function AppRoutes() {
             <Route path="/kasir/edit/pakaian/:id" element={
                 isAuthenticated && userRole === 'Kasir' ? <EditPakaian /> : <Navigate to="/login" replace />
             } />
+
             {/* pembayaran */}
             <Route path="/kasir/pembayaran" element={
                 isAuthenticated && userRole === 'Kasir' ? <Pembayaran /> : <Navigate to="/login" replace />
