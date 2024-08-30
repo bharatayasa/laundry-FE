@@ -28,6 +28,22 @@ export default function Pembayaran() {
         }
     };
 
+    const deletePembayaran = async (id) => {
+        const token = Cookies.get('token');
+        Api.defaults.headers.common['Authorization'] = token;
+
+        if (token) {
+            try {
+                await Api.delete(`/pembayaran/${id}`);
+                fetchPembayaran();
+            } catch (error) {
+                console.error("There was an error nonaktif the pembayaran!", error);
+            }
+        } else {
+            console.error("Token is not available!");
+        }
+    }
+
     useEffect(() => {
         fetchPembayaran();
     }, []);
@@ -152,8 +168,8 @@ export default function Pembayaran() {
                                     </td>
                                     <td className='text-center'>
                                         <div className='flex gap-2 justify-center'>
-                                            <button className='btn btn-primary'>Update</button>
-                                            <button className='btn btn-secondary'>Delete</button>
+                                            <Link to={`/kasir/edit/pembayaran/${pembayaran.id_pembayaran}`} className='btn btn-primary'>Update</Link>
+                                            <button onClick={() => deletePembayaran(pembayaran.id_pembayaran)} className='btn btn-secondary'>Delete</button>
                                         </div>
                                     </td>
                                 </tr>

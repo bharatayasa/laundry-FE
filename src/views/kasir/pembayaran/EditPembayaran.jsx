@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import NavbarKasir from '../../../components/NavbarKasir';
 import Api from '../../../service/api';
 import Cookies from 'js-cookie';
 import Footer from '../../../components/Footer';
 
-export default function AddPembayaran() {
+export default function EditPembayaran() {
+    const { id } = useParams(); 
     const navigate = useNavigate();
 
     const [id_pendaftaran, setId_pendaftaran] = useState('');
     const [id_user, setId_user] = useState('');
     const [status, setStatus] = useState('');
+
     const [validation, setValidation] = useState([]);
 
     const [pendaftarans, setPendaftarans] = useState([]);
@@ -18,21 +20,22 @@ export default function AddPembayaran() {
 
     const statusEnums = ['Lunas', 'Belum Lunas'];
 
-    const handleAddPembayaran = async (e) => {
-        e.preventDefault();
-
+    const fetchDetailPembayaran = async () => {
         const token = Cookies.get('token');
         Api.defaults.headers.common['Authorization'] = token;
 
         try {
-            await Api.post('/pembayaran', {
-                id_pendaftaran,
-                id_user,
-                status
-            });
-            navigate('/kasir/pembayaran');
+            const response = await Api.get(`/pembayaran/${id}`);
+            const pembayaran = response.data.data;
+
+            if (pembayaran) {
+                setId_pendaftaran(pembayaran.id_pendaftaran || '');
+                setId_user(pembayaran.id_user || '');
+                setStatus(pembayaran.status || '');
+            }
         } catch (error) {
-            setValidation(error.response.data);
+            console.log('Error fetching pembayaran details:', error);
+            setValidation(error.response?.data || { message: 'Error fetching pembayaran details' });
         }
     };
 
@@ -42,9 +45,9 @@ export default function AddPembayaran() {
 
         try {
             const response = await Api.get('/pendaftaran');
-            setPendaftarans(response.data.data);
+            setPendaftarans(response.data.data || []);
         } catch (error) {
-            console.error("There was an error fetching the Pendaftar", error);
+            console.error("Error fetching Pendaftar:", error);
         }
     };
 
@@ -54,25 +57,43 @@ export default function AddPembayaran() {
 
         try {
             const response = await Api.get('/kasir/pendaftaran');
-            setKasirs(response.data.data);
+            setKasirs(response.data.data || []);
         } catch (error) {
-            console.error("There was an error fetching the Kasir", error);
+            console.error("Error fetching Kasir:", error);
         }
     };
 
     useEffect(() => {
+        fetchDetailPembayaran();
         fetchPendaftar();
         fetchKasir();
     }, []);
 
+    const updatePembayaran = async (e) => {
+        e.preventDefault();
+
+        const token = Cookies.get('token');
+        Api.defaults.headers.common['Authorization'] = token;
+
+        try {
+            await Api.put(`/pembayaran/${id}`, {
+                id_pendaftaran: id_pendaftaran,
+                id_user: id_user, 
+                status: status
+            });
+            navigate('/kasir/pembayaran');
+        } catch (error) {
+            console.log('Error updating pembayaran:', error);
+            setValidation(error.response?.data || { message: 'Error updating pembayaran' });
+        }
+    };
+
     return (
         <div>
-            <div>
-                <NavbarKasir />
-            </div>
+            <NavbarKasir />
 
             <div className='flex justify-center'>
-                <h1 className='text-2xl my-2 mx-2 font-semibold'>Tambah Pembayaran</h1>
+                <h1 className='text-2xl my-2 mx-2 font-semibold'>Edit Pembayaran</h1>
             </div>
 
             {validation.errors && (
@@ -85,17 +106,18 @@ export default function AddPembayaran() {
 
             <div className='flex justify-center'>
                 <div className='bg-primary/25 px-10 py-10 rounded-xl shadow-xl'>
-                    <form onSubmit={handleAddPembayaran} className='flex flex-col gap-2'>
+                    <form onSubmit={updatePembayaran} className='flex flex-col gap-2'>
                         <div>
                             <select
                                 value={id_pendaftaran}
                                 onChange={(e) => setId_pendaftaran(e.target.value)}
                                 className="select select-bordered w-full"
+                                required
                             >
                                 <option value="">Pilih Pendaftaran</option>
                                 {pendaftarans.map((pendaftaran) => (
                                     <option key={pendaftaran.id_pendaftaran} value={pendaftaran.id_pendaftaran}>
-                                        id: {pendaftaran.id_pendaftaran} {pendaftaran.nama}
+                                        ID: {pendaftaran.id_pendaftaran} - {pendaftaran.nama}
                                     </option>
                                 ))}
                             </select>
@@ -106,11 +128,12 @@ export default function AddPembayaran() {
                                 value={id_user}
                                 onChange={(e) => setId_user(e.target.value)}
                                 className="select select-bordered w-full"
+                                required
                             >
                                 <option value="">Pilih Kasir</option>
                                 {kasirs.map((kasir) => (
                                     <option key={kasir.id_user} value={kasir.id_user}>
-                                        id: {kasir.id_user} {kasir.username}
+                                        ID: {kasir.id_user} - {kasir.username}
                                     </option>
                                 ))}
                             </select>
@@ -125,11 +148,18 @@ export default function AddPembayaran() {
                                         checked={status === statusEnum}
                                         onChange={(e) => setStatus(e.target.value)}
                                         className="radio radio-primary"
+                                        required
                                     />
                                     <span className="ml-2">{statusEnum}</span>
                                 </label>
                             ))}
                         </div>
+
+                        {validation.message && (
+                            <div className="text-red-500 text-sm mt-2">
+                                {validation.message}
+                            </div>
+                        )}
 
                         <button type="submit" className='btn btn-primary mt-5'>
                             Save
@@ -138,9 +168,9 @@ export default function AddPembayaran() {
                 </div>
             </div>
 
-            <div className='mt-20'>
+            <div className='mt-11'>
                 <Footer />
             </div>
         </div>
-    );
+    )
 }
