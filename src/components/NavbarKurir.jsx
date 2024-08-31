@@ -40,9 +40,21 @@ export default function NavbarKurir() {
                         <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                             <li className={`text-lg ${location.pathname === '/kurir/home' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
                                 <div>
-                                    <Link to="/kurir/home">Users</Link>
+                                    <Link to="/kurir/home">Pengiriman</Link>
                                 </div>
                             </li>
+                            <li className={`text-lg ${location.pathname === '/kurir/pakaian' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                                <div>
+                                    <Link to="/kurir/pakaian">Pakaian</Link>
+                                </div>
+                            </li>
+                        <div className="navbar-end">
+                            <div className="hidden md:flex mr-20">
+                                <span>
+                                    <a className="btn" onClick={logout} style={{ cursor: 'pointer' }}>Logout</a>
+                                </span>
+                            </div>
+                        </div>
                         </ul>
                     </div>
                     <div className="flex ml-20">
@@ -55,6 +67,16 @@ export default function NavbarKurir() {
                         <li className={`text-lg ${location.pathname === '/kurir/home' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
                             <div>
                                 <Link to="/kurir/home">Kurir</Link>
+                            </div>
+                        </li>
+                        <li className={`text-lg ${location.pathname === '/kurir/pengolahan' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                            <div>
+                                <Link to="/kurir/pengolahan">Pengolahan</Link>
+                            </div>
+                        </li>
+                        <li className={`text-lg ${location.pathname === '/kurir/pakaian' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                            <div>
+                                <Link to="/kurir/pakaian">Pakaian</Link>
                             </div>
                         </li>
                     </ul>

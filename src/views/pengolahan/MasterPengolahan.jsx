@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import NavbarKurir from '../../components/NavbarKurir'
 import Footer from '../../../src/components/Footer';
 import Cookies from 'js-cookie';
 import Api from '../../service/api';
-import { Link } from 'react-router-dom';
 
-function Kurir() {
-    const [pengirimans, setPengiriman] = useState([]);
-    const [searchCriteria, setSearchCriteria] = useState('id_pengiriman');
+export default function MasterPengolahan() {
+    const [pengolahans, setPengolahan] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchCriteria, setSearchCriteria] = useState('id_pengolahan');
     const [currentPage, setCurrentPage] = useState(1);
     const page = 5;
 
-    const fetchPengiriman = async () => {
+    const fetchPengolahan = async () => {
         const token = Cookies.get('token');
         Api.defaults.headers.common['Authorization'] = token;
 
         if (token) {
             try {
-                const response = await Api.get('/pengiriman');
-                setPengiriman(response.data.data);
+                const response = await Api.get('/pengolahan');
+                setPengolahan(response.data.data);
             } catch (error) {
-                console.error("There was an error fetching the Pengiriman", error);
+                console.error("There was an error fetching the Pengolahan", error);
             }
         } else {
             console.error("Token is not available!");
@@ -29,26 +27,25 @@ function Kurir() {
     };
 
     useEffect(() => {
-        fetchPengiriman();
+        fetchPengolahan();
     }, []);
 
-    const filterPengiriman = pengirimans.filter(pengiriman => {
-        if (searchCriteria === 'id_pengiriman') {
-            return pengiriman.id_pengiriman.toString().toLowerCase().includes(searchTerm.toLowerCase());
-        }else if (searchCriteria === 'id_pengolahan') {
-            return pengiriman.id_pengolahan.toString().toLowerCase().includes(searchTerm.toLowerCase());
+    const filterPengolahan = pengolahans.filter(pengolahan => {
+        if (searchCriteria === 'id_pengolahan') {
+            return pengolahan.id_pengolahan.toString().toLowerCase().includes(searchTerm.toLowerCase());
+        }else if (searchCriteria === 'id_pakaian') {
+            return pengolahan.id_pakaian.toString().toLowerCase().includes(searchTerm.toLowerCase());
         } else {
             return false;
         }
     });
 
-    const indexOfPengiriman = currentPage * page;
-    const indexOfFirstPengiriman = indexOfPengiriman - page;
-    const currentPengiriman = filterPengiriman.slice(indexOfFirstPengiriman, indexOfPengiriman);
-
+    const indexOfPengolahan = currentPage * page;
+    const indexOfFirstPengolahan = indexOfPengolahan - page;
+    const currentPengolahan = filterPengolahan.slice(indexOfFirstPengolahan, indexOfPengolahan);
 
     const nextPage = () => {
-        if (currentPage < Math.ceil(filterPengiriman.length / page)) {
+        if (currentPage < Math.ceil(filterPengolahan.length / page)) {
             setCurrentPage(currentPage + 1);
         }
     };
@@ -61,18 +58,9 @@ function Kurir() {
 
     return (
         <div>
-            <div>
-                <NavbarKurir />
-            </div>
 
             <div className='flex justify-center'>
-                <h1 className='text-2xl my-2 mx-2 font-semibold'>Data Pengiriman</h1>
-            </div>
-
-            <div className='flex mx-auto container mb-5'>
-                <div className='btn btn-primary'>
-                    <Link to={'/kurir/add'}>Add Pengiriman</Link>
-                </div>
+                <h1 className='text-2xl my-2 mx-2 font-semibold'>Data Pengolahan</h1>
             </div>
 
             <div className='flex mx-auto container mb-5'>
@@ -81,8 +69,8 @@ function Kurir() {
                     onChange={(e) => setSearchCriteria(e.target.value)} 
                     className="select select-bordered w-32 max-w-xs"
                 >
-                    <option value="id_pengiriman">ID</option>
-                    <option value="id_pengolahan">ID Pakaian</option>
+                    <option value="id_pengolahan">ID</option>
+                    <option value="id_pakaian">ID Pakaian</option>
                 </select>
                 <input 
                     type="text" 
@@ -99,58 +87,55 @@ function Kurir() {
                         <tr>
                             <th className='text-lg text-center'>No</th>
                             <th className='text-lg text-center'>ID</th>
-                            <th className='text-lg text-center'>ID Pengolahan</th>
-                            <th className='text-lg'>Kurir</th>
-                            <th className='text-lg text-center'>Tgl Pengiriman</th>
-                            <th className='text-lg'>Status Pengiriman</th>
-                            <th className='text-lg text-center'>Aksi</th>
+                            <th className='text-lg text-center'>ID Pakaian</th>
+                            <th className='text-lg text-center'>Status Cuci</th>
+                            <th className='text-lg text-center'>Status Kering</th>
+                            <th className='text-lg text-center'>Status Setrika</th>
+                            <th className='text-lg text-center'>Tanggal Mulai</th>
+                            <th className='text-lg text-center'>Tanggal Selesai</th>
                         </tr>
                     </thead>
 
                     <tbody>
                     {
-                        currentPengiriman.length > 0 
-                        ? currentPengiriman.map((pengiriman, index) => (
-                            <tr className='hover' key={pengiriman.id_pengiriman}>
+                        currentPengolahan.length > 0 
+                        ? currentPengolahan.map((pengolahan, index) => (
+                            <tr className='hover' key={pengolahan.id_pengolahan}>
                                 <td className='text-center'>
-                                    {indexOfFirstPengiriman + index + 1}
-                                </td>
-
-                                <td className='text-center'>
-                                    {pengiriman.id_pengiriman}
+                                    {indexOfFirstPengolahan + index + 1}
                                 </td>
 
                                 <td className='text-center'>
-                                    {pengiriman.id_pengolahan}
-                                </td>
-
-                                <td className='text-center flex gap-3'>
-                                    <div className='font-semibold'>
-                                        ID: {pengiriman.id_user}
-                                    </div>
-                                    <div>
-                                        {pengiriman.username}
-                                    </div>
-                                </td>
-
-                                <td>
-                                    {pengiriman.tanggal_pengiriman}
-                                </td>
-
-                                <td>
-                                    {pengiriman.status_pengiriman}
+                                    {pengolahan.id_pengolahan}
                                 </td>
 
                                 <td className='text-center'>
-                                    <div className='flex gap-2 justify-center'>
-                                        <Link to={`/kurir/update/${pengiriman.id_pengiriman}`} className='btn btn-primary'>Update</Link>
-                                        <button className='btn btn-secondary'>Delete</button>
-                                    </div>
+                                    {pengolahan.id_pakaian}
+                                </td>
+
+                                <td className='text-center'>
+                                    {pengolahan.status_cuci}
+                                </td>
+
+                                <td className='text-center'>
+                                    {pengolahan.status_kering}
+                                </td>
+
+                                <td className='text-center'>
+                                    {pengolahan.status_setrika}
+                                </td>
+
+                                <td className='text-center'>
+                                    {pengolahan.tanggal_mulai}
+                                </td>
+
+                                <td className='text-center'>
+                                    {pengolahan.tanggal_selesai}
                                 </td>
                             </tr>
                         )) : (
                             <tr>
-                                <td colSpan="7">
+                                <td colSpan="9">
                                     <div className='text-center text-secondary'>
                                         Data Belum Tersedia!
                                     </div>
@@ -171,7 +156,7 @@ function Kurir() {
                 </button>
                 <button 
                     onClick={nextPage}
-                    className={`btn ${currentPage >= Math.ceil(filterPengiriman.length / page) ? 'btn-disabled' : 'btn-primary'}`}
+                    className={`btn ${currentPage >= Math.ceil(filterPengolahan.length / page) ? 'btn-disabled' : 'btn-primary'}`}
                 >
                     Next
                 </button>
@@ -184,5 +169,3 @@ function Kurir() {
         </div>
     )
 }
-
-export default Kurir

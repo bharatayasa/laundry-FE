@@ -32,9 +32,14 @@ import EditPembayaran from '../views/kasir/pembayaran/EditPembayaran.jsx';
 import Pengolahan from '../views/pengolahan/index.jsx';
 import AddPengolahan from '../views/pengolahan/AddPengolahan.jsx';
 import EditPengolahan from '../views/pengolahan/EditPengolahan.jsx';
+import PengolahanPakaian from '../views/pengolahan/PengolahanPakaian.jsx';
 
 // kurir
 import Kurir from '../views/kurir/index.jsx';
+import PakaianKurir from '../views/kurir/PakaianKurir.jsx';
+import PengolahanKurir from '../views/kurir/PengolahanKurir.jsx';
+import AddPengiriman from '../views/kurir/AddPengiriman.jsx';
+import EditPengiriman from '../views/kurir/EditPengiriman.jsx';
 
 export default function AppRoutes() {
     const { isAuthenticated, userRole } = useContext(AuthContext);
@@ -117,10 +122,25 @@ export default function AppRoutes() {
             <Route path="/pengolahan/edit/:id" element={
                 isAuthenticated && userRole === 'Pengolahan' ? <EditPengolahan /> : <Navigate to="/login" replace />
             } />
+            <Route path="/pengolahan/pakaian" element={
+                isAuthenticated && userRole === 'Pengolahan' ? <PengolahanPakaian /> : <Navigate to="/login" replace />
+            } />
 
             {/* Kurir routes */}
             <Route path="/kurir/home" element={
                 isAuthenticated && userRole === 'Kurir' ? <Kurir /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/kurir/pakaian" element={
+                isAuthenticated && userRole === 'Kurir' ? <PakaianKurir /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/kurir/pengolahan" element={
+                isAuthenticated && userRole === 'Kurir' ? <PengolahanKurir /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/kurir/add" element={
+                isAuthenticated && userRole === 'Kurir' ? <AddPengiriman /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/kurir/update/:id" element={
+                isAuthenticated && userRole === 'Kurir' ? <EditPengiriman /> : <Navigate to="/login" replace />
             } />
         </Routes>
     );

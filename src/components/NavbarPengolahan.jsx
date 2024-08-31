@@ -57,6 +57,11 @@ export default function NavbarPengolahan() {
                                 <Link to="/pengolahan/home">Pengolahan</Link>
                             </div>
                         </li>
+                        <li className={`text-lg ${location.pathname === '/pengolahan/pakaian' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                            <div>
+                                <Link to="/pengolahan/pakaian">Pakaian</Link>
+                            </div>
+                        </li>
                     </ul>
                 </div>
 
