@@ -1,6 +1,3 @@
-Berikut adalah file `README.md` yang bisa Anda salin langsung:
-
-```markdown
 # Role-Based Access Control (RBAC) with React Router
 
 This project is a role-based access control (RBAC) implementation in a React application using `react-router-dom`. It allows for navigation and access to various components based on user roles such as Admin, Kasir, Pengolahan, and Kurir.
@@ -106,5 +103,3 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 ```
-
-Anda dapat menyalin seluruh teks di atas dan menempelkannya ke file `README.md` Anda.
