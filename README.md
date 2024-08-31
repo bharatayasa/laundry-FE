@@ -1,9 +1,25 @@
-# React + Vite
+# Role-Based Access Control (RBAC) with React Router
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a role-based access control (RBAC) implementation in a React application using `react-router-dom`. It allows for navigation and access to various components based on user roles such as Admin, Kasir, Pengolahan, and Kurir.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Installation](#installation)
+- [Features](#features)
+- [Usage](#usage)
+- [Routes](#routes)
+  - [Admin Routes](#admin-routes)
+  - [Kasir Routes](#kasir-routes)
+  - [Pengolahan Routes](#pengolahan-routes)
+  - [Kurir Routes](#kurir-routes)
+- [Authentication and Authorization](#authentication-and-authorization)
+- [Contributing](#contributing)
+- [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# laundry-FE
+## Installation
+
+To get started with the project, clone the repository and install the dependencies:
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+npm install
