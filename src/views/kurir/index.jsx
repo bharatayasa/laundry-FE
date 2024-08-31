@@ -32,6 +32,22 @@ function Kurir() {
         fetchPengiriman();
     }, []);
 
+    const deletePengiriman = async (id) => {
+        const token = Cookies.get('token');
+        Api.defaults.headers.common['Authorization'] = token;
+
+        if (token) {
+            try {
+                await Api.delete(`/pengiriman/${id}`);
+                fetchPengiriman();
+            } catch (error) {
+                console.error("There was an error nonaktif the pengiriman!", error);
+            }
+        } else {
+            console.error("Token is not available!");
+        }
+    }
+
     const filterPengiriman = pengirimans.filter(pengiriman => {
         if (searchCriteria === 'id_pengiriman') {
             return pengiriman.id_pengiriman.toString().toLowerCase().includes(searchTerm.toLowerCase());
@@ -144,7 +160,7 @@ function Kurir() {
                                 <td className='text-center'>
                                     <div className='flex gap-2 justify-center'>
                                         <Link to={`/kurir/update/${pengiriman.id_pengiriman}`} className='btn btn-primary'>Update</Link>
-                                        <button className='btn btn-secondary'>Delete</button>
+                                        <button onClick={() => deletePengiriman(pengiriman.id_pengiriman)} className='btn btn-secondary'>Delete</button>
                                     </div>
                                 </td>
                             </tr>
