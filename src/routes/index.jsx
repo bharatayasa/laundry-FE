@@ -28,8 +28,12 @@ import Pembayaran from '../views/kasir/pembayaran/index.jsx';
 import AddPembayaran from '../views/kasir/pembayaran/AddPembayaran.jsx';
 import EditPembayaran from '../views/kasir/pembayaran/EditPembayaran.jsx';
 
+// pengolahan
 import Pengolahan from '../views/pengolahan/index.jsx';
+import AddPengolahan from '../views/pengolahan/AddPengolahan.jsx';
+import EditPengolahan from '../views/pengolahan/EditPengolahan.jsx';
 
+// kurir
 import Kurir from '../views/kurir/index.jsx';
 
 export default function AppRoutes() {
@@ -106,6 +110,12 @@ export default function AppRoutes() {
             {/* Pengolahan routes */}
             <Route path="/pengolahan/home" element={
                 isAuthenticated && userRole === 'Pengolahan' ? <Pengolahan /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/pengolahan/add" element={
+                isAuthenticated && userRole === 'Pengolahan' ? <AddPengolahan /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/pengolahan/edit/:id" element={
+                isAuthenticated && userRole === 'Pengolahan' ? <EditPengolahan /> : <Navigate to="/login" replace />
             } />
 
             {/* Kurir routes */}

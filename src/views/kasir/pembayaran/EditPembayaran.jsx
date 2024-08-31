@@ -90,7 +90,9 @@ export default function EditPembayaran() {
 
     return (
         <div>
-            <NavbarKasir />
+            <div>
+                <NavbarKasir />
+            </div>
 
             <div className='flex justify-center'>
                 <h1 className='text-2xl my-2 mx-2 font-semibold'>Edit Pembayaran</h1>

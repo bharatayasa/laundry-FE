@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import NavbarPengolahan from '../../components/NavbarPengolahan'
+import NavbarPengolahan from '../../components/NavbarPengolahan';
 import Footer from '../../../src/components/Footer';
 import Cookies from 'js-cookie';
 import Api from '../../service/api';
@@ -70,7 +70,7 @@ function Pengolahan() {
 
             <div className='flex mx-auto container mb-5'>
                 <div className='btn btn-primary'>
-                    <button>Add Pengolahan</button>
+                    <Link to ={'/pengolahan/add'}>Add Pengolahan</Link>
                 </div>
             </div>
 
@@ -147,14 +147,14 @@ function Pengolahan() {
 
                                 <td className='text-center'>
                                     <div className='flex gap-2 justify-center'>
-                                        <button className='btn btn-primary'>Update</button>
+                                        <Link to={`/pengolahan/edit/${pengolahan.id_pengolahan}`} className='btn btn-primary'>Update</Link>
                                         <button className='btn btn-secondary'>Delete</button>
                                     </div>
                                 </td>
                             </tr>
                         )) : (
                             <tr>
-                                <td colSpan="7">
+                                <td colSpan="9">
                                     <div className='text-center text-secondary'>
                                         Data Belum Tersedia!
                                     </div>
