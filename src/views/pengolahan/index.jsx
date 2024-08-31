@@ -32,6 +32,22 @@ function Pengolahan() {
         fetchPengolahan();
     }, []);
 
+    const deletePengolahan = async (id) => {
+        const token = Cookies.get('token');
+        Api.defaults.headers.common['Authorization'] = token;
+
+        if (token) {
+            try {
+                await Api.delete(`/pengolahan/${id}`);
+                fetchPengolahan();
+            } catch (error) {
+                console.error("There was an error nonaktif the pengolahan!", error);
+            }
+        } else {
+            console.error("Token is not available!");
+        }
+    }
+
     const filterPengolahan = pengolahans.filter(pengolahan => {
         if (searchCriteria === 'id_pengolahan') {
             return pengolahan.id_pengolahan.toString().toLowerCase().includes(searchTerm.toLowerCase());
@@ -148,7 +164,7 @@ function Pengolahan() {
                                 <td className='text-center'>
                                     <div className='flex gap-2 justify-center'>
                                         <Link to={`/pengolahan/edit/${pengolahan.id_pengolahan}`} className='btn btn-primary'>Update</Link>
-                                        <button className='btn btn-secondary'>Delete</button>
+                                        <button onClick={() => deletePengolahan(pengolahan.id_pengolahan)} className='btn btn-secondary'>Delete</button>
                                     </div>
                                 </td>
                             </tr>
