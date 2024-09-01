@@ -104,10 +104,6 @@ export default function EditLaporan() {
         }
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <div>
             <NavbarAdmin />
@@ -127,46 +123,41 @@ export default function EditLaporan() {
             <div className='flex justify-center'>
                 <div className='bg-primary/25 px-10 py-10 rounded-xl shadow-xl'>
                     <form onSubmit={updateLaporan} className='flex flex-col gap-2'>
-                        <div className='flex gap-5 justify-center'>
-                            <select 
-                                value={id_user} 
-                                onChange={(e) => setId_user(e.target.value)} 
-                                className="select select-bordered w-full"
-                            >
-                                {/* <option value="">Pilih User</option> */}
-                                {users.map((user) => (
-                                    <option key={user.id_user} value={user.id_user}>
-                                        id: {user.id_user} {user.username}
-                                    </option>
-                                ))}
-                            </select>
+                        <select 
+                            value={id_user} 
+                            onChange={(e) => setId_user(e.target.value)} 
+                            className="select select-bordered w-full"
+                        >
+                            {users.map((user) => (
+                                <option key={user.id_user} value={user.id_user}>
+                                    id: {user.id_user} {user.username}
+                                </option>
+                            ))}
+                        </select>
 
-                            <select 
-                                value={id_pendaftaran} 
-                                onChange={(e) => setId_pendaftaran(e.target.value)} 
-                                className="select select-bordered w-full"
-                            >
-                                <option value="">Pilih Id Pendaftaran</option>
-                                {pelanggans.map((pelanggan) => (
-                                    <option key={pelanggan.id_pendaftaran} value={pelanggan.id_pendaftaran}>
-                                        id: {pelanggan.id_pendaftaran} {pelanggan.nama}
-                                    </option>
-                                ))}
-                            </select>
+                        <select 
+                            value={id_pendaftaran} 
+                            onChange={(e) => setId_pendaftaran(e.target.value)} 
+                            className="select select-bordered w-full"
+                        >
+                            {pelanggans.map((pelanggan) => (
+                                <option key={pelanggan.id_pendaftaran} value={pelanggan.id_pendaftaran}>
+                                    id: {pelanggan.id_pendaftaran} {pelanggan.nama}
+                                </option>
+                            ))}
+                        </select>
 
-                            <select 
-                                value={id_pembayaran} 
-                                onChange={(e) => setId_pembayaran(e.target.value)} 
-                                className="select select-bordered w-full"
-                            >
-                                <option value="">Pilih Id Pembayaran</option>
-                                {pembayarans.map((bayar) => (
-                                    <option key={bayar.id_pembayaran} value={bayar.id_pembayaran}>
-                                        id: {bayar.id_pembayaran} {bayar.nama}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                        <select 
+                            value={id_pembayaran} 
+                            onChange={(e) => setId_pembayaran(e.target.value)} 
+                            className="select select-bordered w-full"
+                        >
+                            {pembayarans.map((bayar) => (
+                                <option key={bayar.id_pembayaran} value={bayar.id_pembayaran}>
+                                    id: {bayar.id_pembayaran} {bayar.nama}
+                                </option>
+                            ))}
+                        </select>
 
                         <div className='flex gap-5 justify-center mt-3'>
                             <select 
@@ -174,7 +165,6 @@ export default function EditLaporan() {
                                 onChange={(e) => setId_pengolahan(e.target.value)} 
                                 className="select select-bordered w-full"
                             >
-                                <option value="">Pilih Id Pengolahan</option>
                                 {pengolahans.map((olah) => (
                                     <option key={olah.id_pengolahan} value={olah.id_pengolahan}>
                                         id: {olah.id_pengolahan}
@@ -187,10 +177,9 @@ export default function EditLaporan() {
                                 onChange={(e) => setId_pengiriman(e.target.value)} 
                                 className="select select-bordered w-full"
                             >
-                                <option value="">Pilih Id Pengiriman</option>
-                                {pengirimans.map((kirirm) => (
-                                    <option key={kirirm.id_pengiriman} value={kirirm.id_pengiriman}>
-                                        id: {kirirm.id_pengiriman} oleh: {kirirm.username} status: {kirirm.status_pengiriman}
+                                {pengirimans.map((kirim) => (
+                                    <option key={kirim.id_pengiriman} value={kirim.id_pengiriman}>
+                                        id: {kirim.id_pengiriman} oleh: {kirim.username} status: {kirim.status_pengiriman}
                                     </option>
                                 ))}
                             </select>
@@ -219,7 +208,9 @@ export default function EditLaporan() {
                 </div>
             </div>
             
-            <Footer />
+            <div className='mt-10'>
+                <Footer />
+            </div>
         </div>
     );
 }
