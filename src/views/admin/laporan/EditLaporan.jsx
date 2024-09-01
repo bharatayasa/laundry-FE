@@ -23,6 +23,7 @@ export default function EditLaporan() {
     const [pembayarans, setPembayarans] = useState([]);
     const [pengolahans, setPengolahans] = useState([]);
     const [pengirimans, setPengirimans] = useState([]);
+
     const [loading, setLoading] = useState(true);
 
     const fetchDetailLaporan = async () => {
@@ -32,10 +33,9 @@ export default function EditLaporan() {
         try {
             const response = await Api.get(`/laporan/${id}`);
             const laporan = response.data.data[0];
-
+            
             console.log('Laporan yang diterima:', laporan);
 
-            // Set values to state, ensuring fallback values
             setId_user(laporan.id_user || '');
             setId_pendaftaran(laporan.id_pendaftaran || '');
             setId_pembayaran(laporan.id_pembayaran || '');
@@ -43,6 +43,7 @@ export default function EditLaporan() {
             setId_pengiriman(laporan.id_pengiriman || '');
             setTanggal_laporan(laporan.tanggal_laporan || '');
             setKeterangan(laporan.keterangan || '');
+
         } catch (error) {
             console.error("There was an error fetching the laporan details", error);
             setValidation(error.response.data);
@@ -132,7 +133,7 @@ export default function EditLaporan() {
                                 onChange={(e) => setId_user(e.target.value)} 
                                 className="select select-bordered w-full"
                             >
-                                <option value="">Pilih User</option>
+                                {/* <option value="">Pilih User</option> */}
                                 {users.map((user) => (
                                     <option key={user.id_user} value={user.id_user}>
                                         id: {user.id_user} {user.username}
