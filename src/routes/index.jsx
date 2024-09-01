@@ -9,7 +9,10 @@ import Login from '../views/auth/Login.jsx';
 import Admin from '../views/admin/user/index.jsx';
 import CreateUser from '../views/admin/user/CreateUser.jsx';
 import EditUser from '../views/admin/user/EditUser.jsx';
+
 import Laporan from '../views/admin/laporan/index.jsx';
+import AddLaporan from '../views/admin/laporan/AddLaporan.jsx';
+import EditLaporan from '../views/admin/laporan/EditLaporan.jsx';
 
 // kasir
 import Kasir from '../views/kasir/pelanggan/index.jsx';
@@ -64,8 +67,15 @@ export default function AppRoutes() {
                 isAuthenticated && userRole === 'Admin' ? <EditUser /> : <Navigate to="/login" replace />
             } />
 
+            {/* laporan */}
             <Route path="/admin/laporan" element={
                 isAuthenticated && userRole === 'Admin' ? <Laporan /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/admin/add/laporan" element={
+                isAuthenticated && userRole === 'Admin' ? <AddLaporan /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/admin/edit/laporan/:id" element={
+                isAuthenticated && userRole === 'Admin' ? <EditLaporan /> : <Navigate to="/login" replace />
             } />
 
             {/* pelanggan */}

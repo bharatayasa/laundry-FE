@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { Link } from 'react-scroll';
+import { Link } from 'react-router-dom';
 import NavbarAdmin from '../../../components/NavbarAdmin'
 import Footer from '../../../components/Footer';
 import Cookies from 'js-cookie';
@@ -32,6 +32,22 @@ function Laporan() {
     useEffect(() => {
         fetchLaporan()
     }, []);
+
+    const deleteLaporan = async (id) => {
+        const token = Cookies.get('token');
+        Api.defaults.headers.common['Authorization'] = token;
+
+        if (token) {
+            try {
+                await Api.delete(`/laporan/${id}`);
+                fetchLaporan();
+            } catch (error) {
+                console.error("There was an error nonaktif the laporan!", error);
+            }
+        } else {
+            console.error("Token is not available!");
+        }
+    }
 
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
@@ -74,6 +90,12 @@ function Laporan() {
 
             <div className='flex justify-center'>
                 <h1 className='text-2xl my-2 mx-2 font-semibold'>Data Laporan</h1>
+            </div>
+
+            <div className='flex mx-auto container mb-5'>
+                <div className='btn btn-primary'>
+                    <Link to={'/admin/add/laporan'}>Add Laporan</Link>
+                </div>
             </div>
 
             <div className='flex mx-auto container mb-5'>
@@ -173,9 +195,8 @@ function Laporan() {
 
                                     <td>
                                         <div className='flex gap-2 justify-center'>
-                                            <button className='btn btn-secondary'>nonaktif</button>
-                                            <button className='btn btn-accent'>aktif</button>
-                                            <button className='btn btn-primary'>Update</button>
+                                            <Link to={`/admin/edit/laporan/${laporan.id_laporan}`} className='btn btn-primary'>Update</Link>
+                                            <button onClick={() => deleteLaporan(laporan.id_laporan)} className='btn btn-secondary'>Delete</button>
                                         </div>
                                     </td>
                                 </tr>

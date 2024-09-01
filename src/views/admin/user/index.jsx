@@ -184,9 +184,9 @@ function Index() {
                                         </td>
                                         <td>
                                             <div className='flex gap-2 justify-center'>
-                                                <button onClick={() => nonaktofUser(user.id_user)} className='btn btn-secondary'>nonaktif</button>
-                                                <button onClick={() => restore(user.id_user)} className='btn btn-accent'>aktif</button>
                                                 <Link to={`/admin/edit/user/${user.id_user}`} className='btn btn-primary'>Update</Link>
+                                                <button onClick={() => restore(user.id_user)} className='btn btn-accent'>aktif</button>
+                                                <button onClick={() => nonaktofUser(user.id_user)} className='btn btn-secondary'>nonaktif</button>
                                             </div>
                                         </td>
                                     </tr>
