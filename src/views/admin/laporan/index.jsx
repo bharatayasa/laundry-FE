@@ -8,6 +8,10 @@ import Api from '../../../service/api';
 
 function Laporan() {
     const [laporans, setLaporan] = useState([]);
+
+    const [start_date, setStart_date] = useState('');
+    const [end_date, setEnd_date] = useState('');
+
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
     const [searchCriteria, setSearchCriteria] = useState('id_laporan');
@@ -32,6 +36,39 @@ function Laporan() {
     useEffect(() => {
         fetchLaporan()
     }, []);
+
+    const cetakLaporan = async (e) => {
+        e.preventDefault();
+
+        const token = Cookies.get('token');
+
+        try {
+            const response = await Api.get('/cetak/laporan', {
+                params: {
+                    start_date,
+                    end_date
+                },
+                responseType: 'blob', // Ensure responseType is blob for file download
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            // Create a URL for the PDF Blob
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `Laporan_${new Date().toISOString()}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+        } catch (error) {
+            console.error('Error downloading the file:', error);
+            // Handle error (e.g., show a notification)
+        }
+    }
 
     const deleteLaporan = async (id) => {
         const token = Cookies.get('token');
@@ -108,13 +145,30 @@ function Laporan() {
                     <option value="username">Admin</option>
                     <option value="status_cuci">Status Cuci</option>
                 </select>
-                <input 
-                    type="text" 
-                    value={searchTerm} 
-                    onChange={handleSearch} 
-                    placeholder={`Search by ${searchCriteria}`} 
-                    className="input input-bordered w-full max-w-xs ml-2"
+
+                <input
+                    type="text"
+                    placeholder="Search"
+                    className="input input-bordered w-64 mx-2"
+                    value={searchTerm}
+                    onChange={handleSearch}
                 />
+
+                <form onSubmit={cetakLaporan}>
+                    <input
+                        type="date"
+                        value={start_date}
+                        onChange={(e) => setStart_date(e.target.value)}
+                        className="input input-bordered mx-2"
+                    />
+                    <input
+                        type="date"
+                        value={end_date}
+                        onChange={(e) => setEnd_date(e.target.value)}
+                        className="input input-bordered mx-2"
+                    />
+                    <button type="submit" className="btn btn-primary">Cetak Laporan</button>
+                </form>
             </div>
 
             <div className="overflow-x-auto flex container mx-auto">

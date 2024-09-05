@@ -63,10 +63,9 @@ export default function Login() {
             <div className="hero bg-base-200 min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
-                        <h1 className="text-5xl font-bold">Lorem ipsum dolor sit amet.</h1>
+                        <h1 className="text-5xl font-bold">Sistem Informasi Laundry</h1>
                         <p className="py-6">
-                            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                            quasi. In deleniti eaque aut repudiandae et a id nisi.
+                            Sistem Informai Laundry adalah platform untuk mengelola operasional laundry, mencakup pendaftaran, status layanan, pembayaran, dan laporan transaksi.
                         </p>
                         <div className="flex justify-center gap-5">
                             <button className="btn btn-accent"><Link to="/">Kembali</Link></button>

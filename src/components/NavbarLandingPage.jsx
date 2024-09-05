@@ -30,9 +30,9 @@ function NavbarLandingPage() {
                 <div className="navbar-end">
                     <div className="hidden md:flex mr-20">
                         <span>
-                            <button className="btn">
+                            {/* <button className="btn">
                                 <Link to={'/login'}>Login</Link>
-                            </button>
+                            </button> */}
                         </span>
                     </div>
                 </div>
