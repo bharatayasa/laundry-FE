@@ -67,6 +67,26 @@ export default function NavbarAdmin() {
                                 <Link to="/admin/laporan">Laporan</Link>
                             </div>
                         </li>
+                        <li className={`text-lg ${location.pathname === '/admin/read/pendaftaran' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                            <div>
+                                <Link to="/admin/read/pendaftaran">Pendaftaran</Link>
+                            </div>
+                        </li>
+                        <li className={`text-lg ${location.pathname === '/admin/read/pembayaran' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                            <div>
+                                <Link to="/admin/read/pembayaran">Pembayaran</Link>
+                            </div>
+                        </li>
+                        <li className={`text-lg ${location.pathname === '/admin/read/pengolahan' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                            <div>
+                                <Link to="/admin/read/pengolahan">Pengolahan</Link>
+                            </div>
+                        </li>
+                        <li className={`text-lg ${location.pathname === '/admin/read/pengirian' ? 'bg-primary text-white rounded-lg font-semibold' : ''}`}>
+                            <div>
+                                <Link to="/admin/read/pengirian">Pengiriman</Link>
+                            </div>
+                        </li>
                     </ul>
                 </div>
 

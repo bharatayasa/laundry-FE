@@ -63,7 +63,7 @@ export default function Login() {
             <div className="hero bg-base-200 min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
-                        <h1 className="text-5xl font-bold">Sistem Informasi Laundry</h1>
+                        <h1 className="text-2xl font-bold">Sistem Informasi Laundry Pada New Laundry Berbasis Web</h1>
                         <p className="py-6">
                             Sistem Informai Laundry adalah platform untuk mengelola operasional laundry, mencakup pendaftaran, status layanan, pembayaran, dan laporan transaksi.
                         </p>

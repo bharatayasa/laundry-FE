@@ -34,39 +34,51 @@ function Laporan() {
     }
 
     useEffect(() => {
-        fetchLaporan()
+        fetchLaporan();
     }, []);
 
     const cetakLaporan = async (e) => {
         e.preventDefault();
-
+    
         const token = Cookies.get('token');
-
+    
+        if (!start_date || !end_date) {
+            console.error('Tanggal mulai atau tanggal akhir tidak diatur.');
+            return;
+        }
+    
         try {
             const response = await Api.get('/cetak/laporan', {
                 params: {
-                    start_date,
-                    end_date
+                    start_date: start_date,
+                    end_date: end_date
                 },
-                responseType: 'blob', // Ensure responseType is blob for file download
+                responseType: 'blob',
                 headers: {
                     'Authorization': `${token}`,
-                    'Content-Type': 'application/json'
+                    'Accept': 'text/csv'
                 }
             });
-
-            // Create a URL for the PDF Blob
-            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+    
+            const url = window.URL.createObjectURL(new Blob([response.data], { type: 'text/csv' }));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `Laporan_${new Date().toISOString()}.pdf`);
+            const currentDate = new Date();
+
+            const formattedDate = currentDate.toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).replace(/\//g, '-');
+            link.setAttribute('download', `Laporan_${formattedDate}.csv`);
+
             document.body.appendChild(link);
             link.click();
             link.remove();
+            window.URL.revokeObjectURL(url);
 
         } catch (error) {
             console.error('Error downloading the file:', error);
-            // Handle error (e.g., show a notification)
         }
     }
 
@@ -135,40 +147,44 @@ function Laporan() {
                 </div>
             </div>
 
-            <div className='flex mx-auto container mb-5'>
-                <select 
-                    value={searchCriteria} 
-                    onChange={(e) => setSearchCriteria(e.target.value)} 
-                    className="select select-bordered w-32 max-w-xs"
-                >
-                    <option value="id_laporan">ID</option>
-                    <option value="username">Admin</option>
-                    <option value="status_cuci">Status Cuci</option>
-                </select>
+            <div className='flex mx-auto container mb-5 justify-between'>
+                <div>
+                    <select 
+                        value={searchCriteria} 
+                        onChange={(e) => setSearchCriteria(e.target.value)} 
+                        className="select select-bordered w-32 max-w-xs"
+                    >
+                        <option value="id_laporan">ID</option>
+                        <option value="username">Admin</option>
+                        <option value="status_cuci">Status Cuci</option>
+                    </select>
 
-                <input
-                    type="text"
-                    placeholder="Search"
-                    className="input input-bordered w-64 mx-2"
-                    value={searchTerm}
-                    onChange={handleSearch}
-                />
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        className="input input-bordered w-64 mx-2"
+                        value={searchTerm}
+                        onChange={handleSearch}
+                    />
+                </div>
 
-                <form onSubmit={cetakLaporan}>
-                    <input
-                        type="date"
-                        value={start_date}
-                        onChange={(e) => setStart_date(e.target.value)}
-                        className="input input-bordered mx-2"
-                    />
-                    <input
-                        type="date"
-                        value={end_date}
-                        onChange={(e) => setEnd_date(e.target.value)}
-                        className="input input-bordered mx-2"
-                    />
-                    <button type="submit" className="btn btn-primary">Cetak Laporan</button>
-                </form>
+                <div>
+                    <form onSubmit={cetakLaporan}>
+                        <input
+                            type="date"
+                            value={start_date}
+                            onChange={(e) => setStart_date(e.target.value)}
+                            className="input input-bordered mx-2"
+                        />
+                        <input
+                            type="date"
+                            value={end_date}
+                            onChange={(e) => setEnd_date(e.target.value)}
+                            className="input input-bordered mx-2"
+                        />
+                        <button type="submit" className="btn btn-primary">Cetak Laporan</button>
+                    </form>
+                </div>
             </div>
 
             <div className="overflow-x-auto flex container mx-auto">
@@ -179,9 +195,9 @@ function Laporan() {
                             <th className='text-lg'>ID</th>
                             <th className='text-lg'>Admin</th>
                             <th className='text-lg'>Tanggal</th>
-                            <th className='text-lg'>Biaya</th>
                             <th className='text-lg'>Status</th>
                             <th className='text-lg'>Pengiriman</th>
+                            <th className='text-lg'>Biaya</th>
                             <th className='text-lg'>keterangan</th>
                             <th className='text-lg text-center'>Aksi</th>
                         </tr>
@@ -225,19 +241,32 @@ function Laporan() {
 
                                     <td>
                                         <div className='text-sm'>
-                                            {laporan.total_biaya}
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        <div className='text-sm'>
-                                            {laporan.status_cuci}
+                                            <p>
+                                                cuci: {laporan.status_cuci}
+                                            </p>
+                                            <p>
+                                                kering: {laporan.status_kering}
+                                            </p>
+                                            <p>
+                                                strika: {laporan.status_setrika}
+                                            </p>
                                         </div>
                                     </td>
 
                                     <td className=''>
                                         <div className='lg:flex gap-4'>
                                             {laporan.status_pengiriman}
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div className='text-sm'>
+                                            <p>
+                                                {laporan.total_biaya}
+                                            </p>
+                                            <p>
+                                                {laporan.status}
+                                            </p>
                                         </div>
                                     </td>
 

@@ -14,6 +14,11 @@ import Laporan from '../views/admin/laporan/index.jsx';
 import AddLaporan from '../views/admin/laporan/AddLaporan.jsx';
 import EditLaporan from '../views/admin/laporan/EditLaporan.jsx';
 
+import ReadPendaftaran from '../views/admin/masterAdmin/ReadPendaftaran.jsx';
+import ReadePembayaran from '../views/admin/masterAdmin/ReadPembayaran.jsx';
+import ReadePengolahan from '../views/admin/masterAdmin/ReadPengolahan.jsx';
+import ReadePengiriman from '../views/admin/masterAdmin/ReadPengiriman.jsx';
+
 // kasir
 import Kasir from '../views/kasir/pelanggan/index.jsx';
 import AddPelanggan from '../views/kasir/pelanggan/addPelanggan.jsx';
@@ -76,6 +81,20 @@ export default function AppRoutes() {
             } />
             <Route path="/admin/edit/laporan/:id" element={
                 isAuthenticated && userRole === 'Admin' ? <EditLaporan /> : <Navigate to="/login" replace />
+            } />
+
+            {/* read data by admin */}
+            <Route path="/admin/read/pendaftaran" element={
+                isAuthenticated && userRole === 'Admin' ? <ReadPendaftaran /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/admin/read/pembayaran" element={
+                isAuthenticated && userRole === 'Admin' ? <ReadePembayaran /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/admin/read/pengolahan" element={
+                isAuthenticated && userRole === 'Admin' ? <ReadePengolahan /> : <Navigate to="/login" replace />
+            } />
+            <Route path="/admin/read/pengirian" element={
+                isAuthenticated && userRole === 'Admin' ? <ReadePengiriman /> : <Navigate to="/login" replace />
             } />
 
             {/* pelanggan */}

@@ -5,7 +5,9 @@ function Footer() {
         <div>
             <footer className="footer footer-center bg-base-200 text-base-content rounded p-10">
                 <nav className="grid grid-flow-col gap-4">
-                    Laundry
+                    <p className='font-semibold'>
+                        Sistem Informasi Laundry Pada New Laundry Berbasis Web
+                    </p>
                 </nav>
                 <nav>
                     <div className="grid grid-flow-col gap-4">
@@ -45,7 +47,8 @@ function Footer() {
                     </div>
                 </nav>
                 <aside>
-                    <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
+                    <p>JL.IR.H.JUANDA no.374 Denpasar Bali Telp: 022-2506374 Hp: 0811228647</p>
+                    <p>Copyright © {new Date().getFullYear()}</p>
                 </aside>
             </footer>
         </div>
