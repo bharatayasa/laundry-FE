@@ -60,7 +60,7 @@ export default function EditLaporan() {
             const [userResponse, pendaftaranResponse, pembayaranResponse, pengolahanResponse, pengirimanResponse] = await Promise.all([
                 Api.get('/user/admin/role'),
                 Api.get('/pendaftaran'),
-                Api.get('/pembayaran'),
+                Api.get('/admin/pembayaran'),
                 Api.get('/pengolahan'),
                 Api.get('/pengiriman'),
             ]);

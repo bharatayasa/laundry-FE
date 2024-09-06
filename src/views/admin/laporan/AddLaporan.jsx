@@ -84,7 +84,7 @@ export default function AddLaporan() {
 
         if (token) {
             try {
-                const response = await Api.get('/pembayaran');
+                const response = await Api.get('/admin/pembayaran');
                 setPembayaran(response.data.data);
             } catch (error) {
                 console.error("There was an error fetching the pembayaran", error);
