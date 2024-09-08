@@ -73,18 +73,18 @@ export default function Login() {
                     </div>
                     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
 
-                        {validationErrors.length > 0 && (
-                            <div>
-                                {validationErrors.map((error, index) => (
-                                    <p key={index}>{error.path} : {error.msg}</p>
-                                ))}
-                            </div>
-                        )}
-                        {loginFailed && (
-                            <div>
-                                {loginFailed}
-                            </div>
-                        )}
+                    {validationErrors.length > 0 && (
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                            {validationErrors.map((error, index) => (
+                                <p key={index} className="text-sm">{error.path} : {error.msg}</p>
+                            ))}
+                        </div>
+                    )}
+                    {loginFailed && (
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                            <p className="text-sm">{loginFailed}</p>
+                        </div>
+                    )}
 
                         <form className="card-body" onSubmit={login}>
                             <div className="form-control">
